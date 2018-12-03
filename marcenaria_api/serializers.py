@@ -40,6 +40,12 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 
+class FornecedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fornecedor
+        fields = '__all__'
+
+
 class MaterialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Material

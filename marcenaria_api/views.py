@@ -83,6 +83,12 @@ class BasicViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.OrderingFilter, DjangoFilterBackend)
 
 
+class FornecedorViewSet(BasicViewSet):
+    queryset = Fornecedor.objects.all()
+    serializer_class = FornecedorSerializer
+    ordering = ('nome',)
+
+
 class MaterialViewSet(BasicViewSet):
     queryset = Material.objects.all()
     serializer_class = MaterialSerializer

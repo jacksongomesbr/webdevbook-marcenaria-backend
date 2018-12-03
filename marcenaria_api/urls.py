@@ -5,6 +5,7 @@ from .views import *
 router = routers.DefaultRouter()
 router.register(r'usuarios', UserViewSet)
 router.register(r'grupos', GroupViewSet)
+router.register(r'fornecedores', FornecedorViewSet)
 router.register(r'materiais', MaterialViewSet)
 router.register(r'placas', PlacaViewSet)
 router.register(r'recortes-retangulares', RecorteRetangularViewSet)

@@ -4,6 +4,20 @@ import math
 
 
 # Create your models here.
+class Fornecedor(models.Model):
+    class Meta:
+        verbose_name = 'Fornecedor'
+        verbose_name_plural = 'Fornecedores'
+
+    nome = models.CharField(max_length=128)
+    telefone = models.CharField(max_length=15, null=True, blank=True)
+    cidade = models.CharField(max_length=64)
+    uf = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.nome
+
+
 class Material(models.Model):
     nome = models.CharField(max_length=128)
 
@@ -12,6 +26,7 @@ class Material(models.Model):
 
 
 class Placa(models.Model):
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE, related_name='placas')
     material = models.ForeignKey(Material, on_delete=models.CASCADE, related_name='+')
     largura = models.PositiveIntegerField()
     altura = models.PositiveIntegerField()
@@ -42,7 +57,8 @@ class Recorte(models.Model):
 
     def clean(self):
         soma_areas_recortes = 0
-        for recorte in Recorte.objects.select_related('recorteretangular','recortetriangular','recortecircular').all():
+        for recorte in Recorte.objects.select_related('recorteretangular', 'recortetriangular',
+                                                      'recortecircular').all():
             if hasattr(recorte, 'recorteretangular'):
                 soma_areas_recortes += recorte.recorteretangular.area
             if hasattr(recorte, 'recortetriangular'):
